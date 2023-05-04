@@ -5,7 +5,7 @@ SLASH	:= /
 
 V       := @
 
-GCCPREFIX := riscv64-unknown-elf-
+GCCPREFIX := riscv64-unknown-linux-gnu-
 
 ifndef QEMU
 QEMU := qemu-system-riscv64
@@ -130,7 +130,7 @@ $(call create_target,kernel)
 UCOREIMG	:= $(call totarget,ucore.img)
 
 # $(UCOREIMG): $(kernel)
-#	cd ../../riscv-pk && rm -rf build && mkdir build && cd build && ../configure --prefix=$(RISCV) --host=riscv64-unknown-elf --with-payload=../../labcodes/$(PROJ)/$(kernel)  --disable-fp-emulation && make && cp bbl ../../labcodes/$(PROJ)/$(UCOREIMG)
+#	cd ../../riscv-pk && rm -rf build && mkdir build && cd build && ../configure --prefix=$(RISCV) --host=riscv64-unknown-linux-gnu --with-payload=../../labcodes/$(PROJ)/$(kernel)  --disable-fp-emulation && make && cp bbl ../../labcodes/$(PROJ)/$(UCOREIMG)
 
 $(UCOREIMG): $(kernel)
 	$(OBJCOPY) $(kernel) --strip-all -O binary $@
