@@ -266,6 +266,18 @@ qemu: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
 		-machine virt \
 		-nographic \
 		-bios default \
+		-kernel bin/kernel
+
+
+#		-device loader,file=$(UCOREIMG),addr=0x80200000
+
+debug: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
+	$(V)$(QEMU) \
+		-S -s \
+		-machine virt \
+		-nographic \
+		-bios default \
+		-kernel bin/kernel \
 		-device loader,file=$(UCOREIMG),addr=0x80200000
 
 

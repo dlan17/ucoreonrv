@@ -29,7 +29,7 @@ GDB		:= $(GCCPREFIX)gdb
 
 CC		:= $(GCCPREFIX)gcc
 CFLAGS  := -mcmodel=medany -std=gnu99 -Wno-unused -Werror
-CFLAGS	+= -fno-builtin -Wall -O2 -nostdinc $(DEFS)
+CFLAGS	+= -fno-builtin -Wall -O2  $(DEFS)
 CFLAGS	+= -fno-stack-protector -ffunction-sections -fdata-sections
 CTYPE	:= c S
 
@@ -165,7 +165,18 @@ qemu: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
 		-machine virt \
 		-nographic \
 		-bios default \
+		-kernel bin/kernel \
 		-device loader,file=$(UCOREIMG),addr=0x80200000
+
+debug: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
+	$(V)$(QEMU) \
+		-S -s \
+		-machine virt \
+		-nographic \
+		-bios default \
+		-kernel bin/kernel \
+		-device loader,file=$(UCOREIMG),addr=0x80200000
+
 
 spike: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
 	$(V)$(SPIKE) $(UCOREIMG)
